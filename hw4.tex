@@ -1,0 +1,102 @@
+%\documentclass[]{article}
+\documentclass[11pt,onecolumn]{article}
+\usepackage{pset,comment}
+\newcommand{\nn}{_{2n}}
+
+
+\title{MATH 4500 - Homework 4}
+\author{Daniel Alonso Vicuna}
+
+\begin{document}
+\maketitle
+\begin{comment}
+For this problem set, we will let $$ J = \begin{pmatrix} 0& 1 \\ -1 & 0\end{pmatrix} \qquad  J\nn = \begin{pmatrix} J & 0 & 0 & ... & 0 \\ 0 & J & 0 & ... & 0 \\ .. & .. & .. & .. & .. \\ 0 & 0 & 0 & ... & J\end{pmatrix} $$
+\end{comment}
+\begin{exercise}
+If $B  = \begin{pmatrix}
+\alpha & -\beta \\ \overline{\beta} & \overline{\alpha} \end{pmatrix},$ show that $JBJ\inv = \overline{B}$.
+\end{exercise}
+\begin{answer}
+We show this by direct computation:
+\begin{align*}
+    JBJ\inv &= \begin{pmatrix} 0& 1 \\ -1 & 0\end{pmatrix} \begin{pmatrix} \alpha & -\beta \\ \overline{\beta} & \overline{\alpha} \end{pmatrix} \begin{pmatrix} 0& -1 \\ 1 & 0\end{pmatrix} \\
+    &= \begin{pmatrix} \overline{\beta} & \overline{\alpha} \\ -\alpha & \beta \end{pmatrix}\begin{pmatrix} 0& -1 \\ 1 & 0\end{pmatrix} \\
+    &= \begin{pmatrix}\overline{\alpha} & -\overline{\beta} \\ \beta & \alpha \end{pmatrix} \\
+    &= \overline{B}
+\end{align*}
+\end{answer}
+\begin{exercise}
+Conversely, show that if $JBJ\inv = \overline{B}$ and $B =\begin{pmatrix} c & d\\  e & f\end{pmatrix}$ then we have $\overline{c} = f$ and $\overline{d} =-e$, so $B$ has the form $\begin{pmatrix} \alpha &  -\beta \\ \overline{\beta} & \overline{\alpha}\end{pmatrix}$.
+
+\end{exercise}
+\begin{answer}
+First note that $JBJ\inv = \overline{B}$ implies $J\inv \overline{B} J = B$, and we compute the quantity on the LHS:
+\begin{align*}
+    J\inv \overline{B} J &= \begin{pmatrix} 0& -1 \\ 1 & 0\end{pmatrix} \begin{pmatrix} \overline{c} & \overline{d} \\ \overline{e} & \overline{f} \end{pmatrix} \begin{pmatrix} 0& 1 \\ -1 & 0\end{pmatrix} \\
+    &= \begin{pmatrix} -\overline{e} & - \overline{f} \\ \overline{c} & \overline{d} \end{pmatrix} \begin{pmatrix} 0& 1 \\ -1 & 0\end{pmatrix} \\
+    &= \begin{pmatrix} \overline{f} & -\overline{e} \\ -\overline{d} & \overline{c} \end{pmatrix} \\
+\end{align*}
+But we can match the coefficients to those of $B$ since $J\inv \overline{B} J = B$, which gives $\overline{f} = c$, $-\overline{e} = d$, $-\overline{d} = e$ and $\overline{c} = f$. But since $\overline{\overline{a}}= a$, the first two equations are the same as the last two, and we can conclude $\overline{c}= f$ and $\overline{d} = -e$.
+
+
+\end{answer}
+
+
+
+\begin{exercise}
+Use block multiplication, and the results of Exercises 1 and 2, to show that $B\nn$ has the form $C(A)$ if and only if $J\nn B\nn J\nn\inv = \overline{B\nn}$. 
+
+\end{exercise}
+\begin{answer}
+Note that $J\nn$ and $J\nn\inv$ are both block matrices: we can show that $J\nn\inv$ is also a block matrix by the uniqueness of the inverse, since we can construct a block matrix with $n$ blocks, each of which is $J\inv$. Also, note that $J\inv = -J$, which will be used later to simplify the expressions. Clearly, using block multiplication, the product of these matrices is the identity. 
+
+Now we compute $J\nn B\nn J\nn\inv $:
+\begin{align*}
+    J\nn B\nn J\nn\inv &= -\begin{pmatrix} J & 0 & 0 & ... & 0 \\ 0 & J & 0 & ... & 0 \\ .. & .. & .. & .. & .. \\ 0 & 0 & 0 & ... & J\end{pmatrix}
+    \begin{pmatrix} B_{11} & B_{12} & ... & B_{1n} \\ B_{21}& B_{22} & ... & B_{2n} \\ .. & .. & .. & .. \\ B_{n1} & B_{n2} & ... & B_{nn}\end{pmatrix}
+    \begin{pmatrix} J & 0 & 0 & ... & 0 \\ 0 & J & 0 & ... & 0 \\ .. & .. & .. & .. & .. \\ 0 & 0 & 0 & ... & J\end{pmatrix} \\
+    &= - \begin{pmatrix} JB_{11} & JB_{12} & ... & JB_{1n} \\ JB_{21}& JB_{22} & ... & JB_{2n} \\ .. & .. & .. & .. \\ JB_{n1} & JB_{n2} & ... & JB_{nn}\end{pmatrix}
+    \begin{pmatrix} J & 0 & 0 & ... & 0 \\ 0 & J & 0 & ... & 0 \\ .. & .. & .. & .. & .. \\ 0 & 0 & 0 & ... & J\end{pmatrix} \\
+    &= - \begin{pmatrix} JB_{11}J & JB_{12}J & ... & JB_{1n}J \\ JB_{21}J & JB_{22}J & ... & JB_{2n}J \\ .. & .. & .. & .. \\ JB_{n1}J & JB_{n2}J & ... & JB_{nn}J\end{pmatrix}
+\end{align*}
+Notice for each of these blocks, $J B_{ij} J\inv = \overline{B_{ij}}$ if and only if $B_{ij}$ has the form $C(A)$ by Exercises 1 and 2. In order for the matrix $B\nn$ to have the form $C(A)$, all of these blocks must have the form $C(A)$, and if they all are of the form $C(A)$ then clearly $JB_{ij}J\inv = \overline{B_{ij}}$ for all $i,j$, and thus $J\nn B\nn J\nn\inv = \overline{B\nn}$ if and only if $B\nn$ is of the form $C(A)$.
+\end{answer}
+
+
+
+\begin{exercise}
+By taking det of both sides of the equation in Exercise 3, show that $det(B\nn)$ is real. 
+
+\end{exercise}
+\begin{answer}
+We take the determinant of both sides, as suggested:
+\begin{align*}
+    det(B\nn) &= det(J\nn \overline{B\nn} J\nn\inv) \\
+    &= det(J\nn) det(\overline{B\nn}) det(J\nn\inv) \\
+    &= det(J\nn)det(J\nn\inv) det(\overline{B\nn}) \\
+    &= det(\one)det(\overline{B\nn}) \\
+    &= det(\overline{B\nn})
+\end{align*}
+But note that if $det(A) = a$ for some matrix $A \in \mathbb{C}_{n \times n}$, and some $a \in \mathbb{C}$, then $det(\overline{C}) = \overline{a}$, since the determinant is the sum of products of entries in $B\nn$, and both addition and multiplication commute with conjugation. Hence, 
+$$ det(B\nn) = a = \overline{a} = det(\overline{B\nn}) \implies det(B\nn) \in \real $$
+\end{answer}
+
+
+\begin{exercise}
+Assuming now that $B\nn$ is in the complex form of $Sp(n)$, and hence is unitary, show that $det(B\nn)=\pm1$.
+
+\end{exercise}
+\begin{answer}
+We are assuming that $B\nn$ is unitary, and hence by definition we have:
+\begin{align*}
+    B\nn B\nn^\dagger &= \one \\
+    det(B\nn B\nn^\dagger) &= det(\one) \\
+    det(B\nn) det(B\nn^\dagger) &= 1 \\
+    det(B\nn)\overline{det(B\nn)} &= 1\\
+    |det(B\nn)|^2 &= 1
+\end{align*}
+But by Exercise 4, $det(B\nn) \in \real$, so it follows that $det(B\nn)=\pm 1$.
+
+\end{answer}
+
+\end{document}

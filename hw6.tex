@@ -1,0 +1,83 @@
+%\documentclass[]{article}
+\documentclass[11pt,onecolumn]{article}
+\usepackage{pset}
+\newcommand{\nn}{_{2n}}
+\newcommand{\bl}{B_{3,1}}
+
+
+\title{MATH 4500 - Homework 5}
+\author{Daniel Alonso Vicuna}
+
+\begin{document}
+\maketitle
+
+\begin{exercise}
+Assuming that $AB=BA$, show that $$(A+B)^m =A^m+\binom{m}{1} A^{m-1}B+\binom{m}{2}A^{m-2}B^2+...+\binom{m}{m-1} AB^{m-1}+B^m,$$ where $\binom{m}{l}$ denotes the number of ways of choosing $l$ things from a set of $m$ things. 
+\end{exercise}
+\begin{answer}
+We first prove that if $AB=BA$, then for all $l.m \in \mathbb{Z}$ $BA^lB^m = A^lB^{m+1}$. We show this by induction on $l$, and this clearly holds for $l=0$ since $BA^0B^k = BB^k = B^{k+1}$. Now assume it holds up to $l=k$. Then $$BA^{k+1}B^m = ABA^{k}B^m = AA^kB^{m+1} = A^{k+1}B^{m+1}.$$
+In addition, we show that for $k \ge l \ge 1,$ $$ \binom{k}{l} + \binom{k}{l-1} = \binom{k+1}{l}$$. We use the formula which is proven independently on Exercise 2:
+\begin{align*}
+    \binom{k}{l} + \binom{k}{l-1} &= \frac{k!}{l!(k-l)!} + \frac{k!}{(l-1)!(k-l+1)!} \\
+    &= \frac{k!(k+1-l)}{l!(k-l+1)!} + \frac{k!l}{l!(k-l+1)!}  \\
+    &= \frac{k!(k+1)}{l!(k-l)!} \\
+    &= \frac{(k+1)!}{l!(k+1-l)!} = \binom{k+1}{l}
+\end{align*}
+Now, we prove the problem statement by induction on $m$, also using the fact that $1 = \binom{k}{0} = \binom{k}{k} $.
+\begin{itemize}
+    \item \textbf{Base case:} for $m=1$, it clearly holds since $$ (A+B)^1 = A^1 + B^1 $$
+    \item \textbf{Inductive step:} Now we assume that this holds up to $k$ and prove that it must then hold for $k+1$.
+    \begin{align*}
+        (A+B)^{k+1} &= (A+B)(A+B)^k \\
+        &= (A+B)(A^k + \binom{k}{1} A^{k-1}B + \binom{k}{2}A^{k-2}B^2 + ... + \binom{k}{k-1}AB^{k-1} + B^k) \\
+        &= (A^{k+1} + \binom{k}{1} A^{k}B + \binom{k}{2}A^{k-1}B^2 + ... + \binom{k}{k-1}A^2B^{k-1} + AB^k) \\
+        &+ (BA^k + \binom{k}{1} BA^{k-1}B + \binom{k}{2}BA^{k-2}B^2 + ... + \binom{k}{k-1}BAB^{k-1} + B^{k+1}) \\
+        &= (A^{k+1} + \binom{k}{1} A^{k}B + \binom{k}{2}A^{k-1}B^2 + ... + \binom{k}{k-1}A^2B^{k-1} + AB^k) \\
+        &+ (A^kB + \binom{k}{1} A^{k-1}B^2 + \binom{k}{2}A^{k-2}B^3 + ... + \binom{k}{k-1}AB^{k} + B^{k+1}) \\
+        &= A^{k+1} + (\binom{k}{1}+\binom{k}{0}) A^{k}B + (\binom{k}{2}+\binom{k}{1})A^{k-2}B^2 + ... \\ &+ \hspace{3mm} (\binom{k}{k}+\binom{k}{k-1})AB^{k} + B^{k+1} \\
+        &= A^{k+1} + \binom{k+1}{1}A^kB + \binom{k+1}{2}A^{k-2}B^2 + ... + \binom{k+1}{k}AB^{k} + B^{k+1}
+    \end{align*}
+\end{itemize}
+This concludes the proof.
+\end{answer}
+\begin{exercise}
+Show that $$ \binom{m}{l} = \frac{m!}{l!(m-l)!} $$
+\end{exercise}
+\begin{answer}
+
+We can begin by noticing that we can sample an arrangement(or ordered sequence) from some set $S$ such that $|S|=m$. For the first element, there are $m$ choices, for the second $m-1$ and so on until $m-l+1$, so from independence there are $m!/(m-l)!$ possible arrangements. But the order is irrelevant for drawing $l$ things from $S$, so every permutation of these $l$ entries of the arrangement is equivalent and there's $k!$ of them, so there is at least a $k-1$ correspondence between arrangements of $l$ elements from a set of $m$ elements, and choices of $l$ things from a set of $m$ things. 
+
+Notice that for any two sequences that are not permutations of each other cannot represent an equivalent "choice of $l$ things from a set of $m$ things". Suppose, that sequences $x$ contains an element $x_i$ that is not in $y$. Then this means there is a "thing" in the choice represented by $x$ that is not in $y$, so the choices are not the same. This shows that two ordered sequences are the same choice of $l$ items from a set of $m$ items if and only if the two sequences are permutations of each other, and thus the correspondance is exactly $k!-1$ so the number of choices is
+$$ \binom{m}{l} = \frac{m!/(m-l)!}{k!} = \frac{m!}{(m-l)!l!} $$
+
+\begin{comment}
+Choosing $l$ items from a set of $m$ items without replacement amounts to enumerating the elements in the set (listing them as a tuple, where the first entry corresponds to the first enumerated item) which is possible since $m < \infty$, permuting the elements, and choosing the first $l$ elements in the permutation. There are $m!$ ways of permuting the tuple of size $m$, but we dont care about the order of the first $l$ elements, or the order of the last $m-l$ elements, Hence, 
+$$ \binom{m}{l} = \frac{m!}{l!(m-l)!} $$
+
+Another way to see this: we can enumerate the items in the set $S$ that we are sampling from, so that we can represent any subset as a binary vector $v$ where $v_i = 1$ if the ith item is in the subset of interest, and $v_i = 0$ otherwise. Then, choosing a subset $H \subseteq S$ such that $|H|=l$ amounts to finding a binary vector $v$ with exactly $l$ ones. There are $m!$ permutations of such a vector $v$, but since the $0$ and $1$ respectively are not unique, then any permutation of the 0s or 1s is indistinguible and we have a total of $m!/(l!(m-l)!)$ possible, distinct vectors $v$.
+\end{comment}
+\end{answer}
+\begin{exercise}
+Deduce from Exercises 1 and 2 that the coefficient of $A^{m-l}B^l$ in $$e^{A+B} = 1+ \frac{A+B}{1!} + \frac{(A+B)^2}{2!} + \frac{(A+B)^3}{3!} +···$$ is $\frac{1}{l!(m-l)!}$ when $AB=BA$.
+\end{exercise}
+\begin{answer}
+From Exercise 1, we can see that 
+$$ (A+B)^m = \sum_{i=0} \binom{m}{i} A^{m-i}B^i, $$ so we use this and the expression for $\binom{m}{l}$ that we proved in Exercise 2:
+\begin{align*}
+    e^{A+B} &= \sum_{m=0}^\infty \frac{(A+B)^m}{m!} \\
+    &= \sum_{m=0}^\infty \frac{1}{m!}\sum_{l=0}^m \binom{m}{l} A^{m-l}B^l \quad \text{Exercise 1} \\
+    &= \sum_{m=0}^\infty \sum_{l=0}^m \frac{1}{m!} \frac{m!}{(m-l)!l!} A^{m-l}B^l \quad \text{Exercise 2}\\
+    &= \sum_{m=0}^\infty \sum_{l=0}^m \frac{1}{(m-l)!l!} A^{m-l}B^l
+\end{align*}
+\end{answer}
+\begin{exercise}
+Show that the coefficient of $A^{m-l}B^l$ in 
+$$( \mathbf{1} + \frac{A}{1!} + \frac{A^2}{2!} + \frac{A^3}{3!}+...  ) ( \mathbf{1} + \frac{B}{1!} + \frac{B^2}{2!} + \frac{B^3}{3!}+... ) $$
+is also $\frac{1}{l!(m−l)!}$,and hence that $e^{A+B} =e^Ae^B$ when $AB=BA$.
+\end{exercise}
+\begin{answer}
+Any term in the product of these two series is of the form $A^{m-l}B^l$. Any such term must have a factor of $A^{m-l}$, for which the only possibility is $\frac{A^{m-l}}{(m-l)!}$, and a factor $B^l$, and the only term in the second series of this order is $B^l/l!$. Hence, the term in the product of these two series of the form $A^{m-l}B^l$ has coefficient $\frac{1}{(m-l)!l!}$.
+
+Since the series on the left is $e^A$ and the one on the right is $e^B$, and their product $e^Ae^B$ is equal to $e^{A+B}$ above (we just proved the coefficients of every term are equal), then $e^Ae^B=e^{A+B}$. Another way of seeing this is that $AB - BA = 0$, so since the first series converges absolutely to $e^A$ and the second to $e^B$ then their Cauchy product converges to $e^Ae^B$ (this would be an "extension" of the Cauchy product).
+\end{answer}
+\end{document}

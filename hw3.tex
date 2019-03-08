@@ -1,0 +1,91 @@
+%\documentclass[]{article}
+\documentclass[11pt,onecolumn]{article}
+\usepackage{pset}
+
+\title{MATH 4500 - Homework 3}
+\author{Daniel Alonso Vicuna}
+
+\begin{document}
+\maketitle
+
+\begin{exercise}
+ Check that $u_4\overline{u_3}u_2\overline{u_1} = i$ and $\overline{u_1}u_2\overline{u_3}u_4 = 1$, so the product of the four reﬂections is indeed $q\mapsto \ii q$.
+\end{exercise}
+\begin{answer}
+From the previous exercises on the book, the values of $u_i$ are as follows:
+$$ u_1 = \ii \quad u_2 = \frac{\ii-1}{\sqrt{2}} \quad u_3 = \kk \quad u_4 = \frac{\kk - \jj}{\sqrt{2}}$$ 
+$$ \implies \overline{u_1} = -\ii \quad \overline{u_3} = -\kk $$
+So we can compute the quantities above using associativity:
+\begin{align*}
+    u_4\overline{u_3}u_2\overline{u_1} &= u_4\overline{u_3}u_2\overline{u_1}\\
+    &= (u_4\overline{u_3})(u_2\overline{u_1}) \\
+    &= (\frac{\kk - \jj}{\sqrt{2}} \kk)(\frac{\ii-1}{\sqrt{2}} \ii)\\
+    &= \frac{1}{2} (-1-\ii)(-1-\ii) \\
+    &= \frac{1}{2}2\ii = \ii
+\end{align*}
+Similarly,
+\begin{align*}
+    \overline{u_1}u_2\overline{u_3}u_4 &= (\overline{u_1}u_2)(\overline{u_3}u_4) \\
+    &= (\ii \frac{\ii-1}{\sqrt{2}} )(\kk \frac{\kk - \jj}{\sqrt{2}} ) \\
+    &=\frac{1}{2} (-1-\ii)(-1+\ii) \\
+    &= 1
+\end{align*}
+\end{answer}
+\begin{exercise}
+Check that $q\mapsto u\inv qu$ is an automorphism of $\mathbb{H}$ for any unit quaternion $u$. 
+\end{exercise}
+
+\begin{answer}
+We check that $\varphi(q) = u\inv q u$ indeed defines an automosphism.
+\begin{itemize}
+    \item \underline{Injectivity.} Suppose that $\varphi(q_1) = \varphi(q_2)$. We show that this implies $q_1 = q_2$:
+    \begin{align*}
+        \varphi(q_1) &= \varphi(q_2) \\
+        u\inv q_1 u &= u\inv q_2 u \\
+        u (u\inv q_1 u) u\inv &= u (u\inv q_2 u) u\inv \quad \text{Multiply on the left and right}\\
+        (u u\inv) q_1 (u u\inv) &= (u u\inv) q_2 (u u\inv) \quad \text{Associative} \\
+        q_1 &= q_2
+    \end{align*}
+    \item \underline{Surjectivity.} For any $q' \in \mathbb{H}$, there exists $q \in \mathbb{H}$ such that $u\inv q u = q'$. Clearly,
+    \begin{align*}
+        u\inv q u &= q' \\
+        u (u\inv q u) u\inv &= u q' u\inv \\
+        q &= u q' u\inv 
+    \end{align*}
+    Note that such a $q \in \mathbb{H}$ since $u,u\inv \in \s^3$ so $uq' \in \mathbb{H}$ and $uq'u\inv \in \mathbb{H}$.
+    \item \underline{Homomorphism.} For all $q_1,q_2 \in \mathbb{H}$, we have that
+    \begin{align*}
+        \varphi(q_1q_2) &= u\inv q_1 q_2 u \\
+        &= u\inv q_1 (1) q_2 u \\
+        &= u\inv q_1 (u u\inv) q_2 u \\
+        &= (u\inv q_1 u) (u\inv q_2 u) \\
+        &= \varphi(q_1) \varphi(q_2)
+    \end{align*}
+\end{itemize}
+\end{answer}
+
+\begin{exercise}
+Give an example of a matrix in $O(3)$ that is not in $SO(3)$, and interpret it geometrically.
+\end{exercise}
+\begin{answer}
+An example of such a matrix is a single reflection, which is by definition not orientation preserving and does not have determinant 1. For example, a reflection across the plane passing throught $\mathcal{O}$, perpendicular to the x axis:
+$$ R_x \begin{pmatrix} -1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix}$$
+Clearly, this matrix satisfies $R_x^TR_x = \one$ since its a diagonal matrix with diagonals $\pm 1$ and consequently $R_x \in O(3)$, but $det(R_x) = -1$ so $R_x \notin SO(3)$.
+\end{answer}
+
+\begin{exercise}
+Bearing in mind that matrix multiplication is a continuous operation, show that if there are continuous paths in $G$ from $1$ to $A\in G$ and to $B\in G$ then there is a continuous path in $G$ from $A$ to $AB$. 
+\end{exercise}
+\begin{answer}
+First consider the continuous path $\phi : I \rightarrow G$, where $i = [0,1]$ such that $\phi(0) = 1$ and $\phi(1) = B$ such as the one given in the problem. Now we construct another continuous map $ \tilde{\phi}: I \rightarrow G$ by composition of continuous maps, defined by $\tilde{\phi} = A \circ \phi$ (since matrix multiplication is a continuous operation). Clearly, $\tilde{\phi}(0) = A 1 = A$, while $\tilde{\phi}(1) = A B$. This shows that, if there is a continuous map from $1$ to $B$ in $G$, then there is also a continuous map from $A$ to $AB$.
+\end{answer}
+
+\begin{exercise}
+ Similarly, show that if there is a continuous path in $G$ from $1$ to $A$, then there is also a continuous path from $A\inv$ to $1$. 
+\end{exercise}
+\begin{answer}
+We construct a $\tilde{\phi}: I \rightarrow G$ as in the last problem but using $A\inv$ instead of $A$. That is, $\tilde{\phi} = A\inv \circ \phi$ where $\phi(0) = 1$ and $\phi(1) = A$. Clearly, this is also a composition of continuous maps, which is itself continuous, and $\tilde{\phi}(0) = A\inv 1 = A\inv$ while $\tilde{\phi}(1) = A \inv A = 1$ as desired. Notice that $A\inv \in G$ since $G$ is a group.
+\end{answer}
+
+
+\end{document}
