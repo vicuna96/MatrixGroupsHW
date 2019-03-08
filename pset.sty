@@ -1,0 +1,35 @@
+\usepackage{amsthm,amssymb,amsmath,centernot,verbatim,enumerate,enumitem,framed,changepage}
+\usepackage{pdfrender,xcolor}
+\usepackage[left=2cm, right=2cm, top=2cm]{geometry}
+\newtheorem{prop}{Proposition}
+\newtheorem{theorem}{Theorem}
+\newtheorem*{remark}{Remark}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}%[section]
+\newtheorem{exer}{Exercise}
+\newenvironment{exercise}{\begin{exer}}{\end{exer}}
+\colorlet{shadecolor}{gray!15}
+\newenvironment{defin}{\begin{shaded}\begin{definition}}{\end{definition}\end{shaded}}
+\newenvironment{anss}{\begin{tcolorbox}[colback=white!50!white] \ans \newline}{ \end{tcolorbox} }
+\newenvironment{answer}{\begin{adjustwidth}{20pt}{20pt}\begin{ans}}{\end{ans}\end{adjustwidth}}
+
+\setlength{\FrameSep}{4pt}
+\DeclareMathOperator{\one}{\mathbf{1}}
+\DeclareMathOperator{\zero}{\mathbb{0}}
+\DeclareMathOperator{\real}{\mathbb{R}}
+\DeclareMathOperator{\s}{\mathbf{S}}
+\DeclareMathOperator{\nat}{\mathbb{N}}
+\DeclareMathOperator{\complex}{\mathbb{C}}
+\DeclareMathOperator{\lin}{\mathcal{L}}
+\DeclareMathOperator{\inv}{^{-1}}
+\DeclareMathOperator{\q}{\mathbb{Q}}
+\DeclareMathOperator{\z}{\mathbb{Z}}
+\DeclareMathOperator{\ii}{\textbf{i}}
+\DeclareMathOperator{\kk}{\textbf{k}}
+\DeclareMathOperator{\jj}{\textbf{j}}
+\DeclareMathOperator{\mnn}{M_{n \times n}}
+\newcommand{\ans}{\textbf{Answer:}}
+\newcommand{\todo}[1]{\textcolor{red}{\bf [TODO: #1]}}
+
+\pdfrender{StrokeColor=black,TextRenderingMode=2,LineWidth=0.3pt}

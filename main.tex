@@ -1,0 +1,186 @@
+%\documentclass[]{article}
+\documentclass[11pt,onecolumn]{article}
+\usepackage{pset}
+\newcommand{\nn}{_{2n}}
+\newcommand{\bl}{B_{3,1}}
+
+
+\title{MATH 4500 - Homework 5}
+\author{Daniel Alonso Vicuna}
+
+\begin{document}
+\maketitle
+\begin{definition}
+Suppose $V$ is a finite dimensional vector space over $\real$ (or $\complex$), and suppose $B$ is a function $V \times V → \real$ (or $V \times V \rightarrow \complex$).
+We say $B$ is a bilinear form if for any $u, v, w \in V$ and $a \in \real$ (or $\complex$)
+\begin{align}
+B(u + v, w) &= B(u, w) + B(v, w) \\
+B(u, v + w) &= B(u, v) + B(u, w) \\
+B(au, v) &= aB(u, v) \\
+B(u, av) &= \overline{a}B(u, v)    
+\end{align}
+\end{definition}
+\begin{exercise}
+Show that $B : \real^n \times \real^n \rightarrow \real$, defined as $B(u, v) = u \cdot v = uv^T$ is a symmetric bilinear form over $\real^n$.
+\end{exercise}
+\begin{answer}
+We first show that it is a bilinear form by direct computation:
+\begin{enumerate}
+    \item $B(u+v,w) = (u+v)w^T = uw^T + vw^T = B(u,w) + B(v,w)$
+    \item $B(u,v+w) = u(v+w)^T = u(v^T+w^T) = uv^T+uw^T = B(u,w) + B(u,w)$
+    \item $B(au,v) = (au)v^T = auv^T = a(uv^T) = aB(u,v)$
+    \item $B(u,av) = u(av)^T = u(av^T) = auv^T = aB(u,v)$
+\end{enumerate}
+Note that $a\in \real$ so the fourth condition is satisfied. $B$ is clearly also symmetric:
+$$ B(v,u) = vu^T = (vu^T)^T = uv^T = B(u,v) \quad \text{ since } vu^T \in \real$$
+\end{answer}
+\begin{exercise}
+Show that $H : \complex^n \times \complex^n \rightarrow \complex$, defined as $H(u, v) = uv^\dagger$ is a bilinear form over $\complex^n$ but it is not symmetric. Here, $\dagger$ means conjugate transpose.
+\end{exercise}
+\begin{answer}
+We also show this by direct computation:
+\begin{enumerate}
+    \item $B(u+v,w) = (u+v)w^\dagger = uw^\dagger + vw^\dagger = B(u,w) + B(v,w)$
+    \item $B(u,v+w) = u(v+w)^\dagger = u(v^\dagger+w^\dagger) = uv^\dagger+uw^\dagger = B(u,w) + B(u,w)$
+    \item $B(au,v) = (au)v^\dagger = auv^\dagger = a(uv^\dagger) = aB(u,v)$
+    \item $B(u,av) = u(av)^\dagger = u(\overline{a}v^\dagger) = \overline{a}uv^\dagger = \overline{a}B(u,v)$
+\end{enumerate}
+However, this form is not symmetric
+$$B(v,u)^\dagger = (vu^\dagger)^\dagger = uv^\dagger = B(u,v)$$
+as $B(v,u)^\dagger \neq B(v,u)$ since it might be the case that $B(v,u) \neq \overline{B(v,u)}$
+\end{answer}
+\begin{exercise}
+Suppose $\omega : \real^4 \times \real^4$ is a bilinear form. On a basis $e_1, e_2, e_3, e_4$ we have
+$$\omega(e_1, e_4) = \omega(e_2, e_3) = -\omega(e_4, e_1) = -\omega(e_3, e_2)$$
+$$\omega(e_i, e_j ) = 0 \quad  \text{on all other basis vectors} $$
+Show that this bilinear form $\omega$ is antisymmetric. We define
+$$G := \{A \in GL_4(\real) \mid \omega(Ax, Ay) = \omega(x, y) \text{ for all } x, y \in \real^4\}$$
+Prove that $G$ is a group. This group is denoted by $Sp(2, \real)$ and called the symplectic group.
+\end{exercise}
+\begin{answer}
+To make computations easier, I will denote $\omega(e_i,e_j) = w_{ij}$ in this problem. First note that we can write any vector $x$ as $x = \sum_{i=1}^4 a_i e_i$ since $\{e_1,e_2,e_3,e_4\}$ are a basis for $\real^4$. Then, we can check that this form is antisymmetric by direct computation - letting $u = \sum_{i=1}^4 u_i e_i$ and $v = \sum_{i=1}^4 v_i e_i$. Then:
+\begin{align*}
+    \omega(u,v) &= \omega( \sum_i u_i e_i,\sum_j v_j e_j ) \\
+    &= \sum_i \omega(u_ie_i,\sum_j v_je_j) \quad \text{ by (1)} \\
+    &= \sum_i u_i\omega(e_i,\sum_j v_je_j) \quad \text{ by (3)} \\
+    &= \sum_i u_i \sum_j v_j\omega(e_i, e_j) \quad \text{ by (2) then (4)} \\
+    &= u_1v_4 w_{14} + u_2v_3 w_{23} + u_3v_2w_{32} + u_4v_1w_{41} \\
+    &= -u_1v_4w_{41} - u_2v_3w_{32} - u_3v_2w_{23} - u_4v_1w_{14}
+\end{align*}
+But following the exact same process until the penultimate step, (or by replacing any $u_i \leftrightarrow v_i$), clearly 
+\begin{align*}
+    \omega(v,u) &= v_1u_4w_{14} + v_3u_2w_{23} + v_3u_2w_{23} + v_4u_1w_{14} \\
+    &= - \omega(u,v) \quad \text{by computation above}
+\end{align*}
+Now we show that $G$ is a group, by first noting that we can compute $\omega(u,v)$ by
+$$ \omega(u,v) = \begin{pmatrix} u_1 & u_2 & u_3 & u_4 \end{pmatrix} \begin{pmatrix} 0 & 0 & 0 & w \\ 0 & 0 & w & 0 \\ 0 & -w & 0 & 0 \\ -w & 0 & 0 & 0\end{pmatrix} \begin{pmatrix} v_1 \\ v_2 \\ v_3 \\ v_4 \end{pmatrix}, $$ where $\omega(e_1,e_4) = w$. Hence, for any $A \in G$, if we denote the matrix in the equation above as $W$ we must have:
+\begin{align*}
+    &\omega(u,v) = \omega(Au,Av) \quad \forall u,v \in \real^4 \\
+    &\Leftrightarrow u^TWv = (Au)^TW(Av) = u^TA^TWAv \quad \forall u,v \in \real^4 \\
+    &\Leftrightarrow A^TWA = W
+\end{align*}
+We can use this to show that $G$ is a group.
+\begin{enumerate}
+    \item Clearly, $\one \in G$, since $\one^T W \one = W$.
+    \item Take any $A \in G$, and note that $0 \neq w^4 = det(W) = det(W)det(A^TWA) = det(A)^2 det(W) $, hence $det(A) \neq 0$ and $A$ is invertible. Furthermore, 
+    \begin{align*}
+        A^TWA &= W \\
+        \Rightarrow A\inv^T A^T W A A\inv &= A\inv^T W A\inv \\
+        W = A\inv^T W A\inv,
+    \end{align*}
+    and clearly $A\inv \in G$.
+    \item Take $A_1,A_2 \in G$, then
+    \begin{align*} 
+        (A_1A_2)^T W A_1A_2 = A_2^TA_1^TW A_1A_2 = A_2^T W A_2 = W.
+    \end{align*}
+    Hence, $A_1A_2 \in G$
+    \item Matrix multiplication is associative.
+\end{enumerate}
+\end{answer}
+\begin{exercise}
+Show that for $u, v \in \real^4$
+$$B_{3,1}(u, v) = u_1v_1 + u_2v_2 + u_3v_3 - u_4v_4$$
+is a symmetric bilinear form. Is $B_{3,1}(u,u)$ an inner product? We define
+$$G := \{A \in GL_4(\real) \mid B_{3,1}(Ax, Ay) = B_{3,1}(x, y)\text{ for all }x, y \in \real^4\}$$
+Prove that $G$ is a group. It is denoted by $SO(3,1)$ and is called the Lorentz group and it plays an important role in physics.
+\end{exercise}
+\begin{answer}
+We first show that $\bl$ is a bilinear from:
+\begin{enumerate}
+    \item 
+    \begin{align*}
+        \bl(u+v,w) &= \sum_{i=1}^3 (u+v)_iw_i -(u+v)_4w_4 = \sum_{i=1}^3(u_i+v_i)w_i - (u_4+v_4)w_4 \\ &= \sum_{i=1}^3 u_iw_i - u_4w_4 + \sum_{i=1}^3 v_iw_i - v_4w_4 = \bl(u,w) + \bl(v,w) \\
+    \end{align*}
+    \item \vspace{-.7cm}
+    \begin{align*}
+        \bl(u,v+w) &= \sum_{i=1}^3 u_i(v+w)_i - u_4(v+w)_4 = \sum_{i=1}^3 u_iv_i - u_4v_4 + \sum_{i=1}^3 u_iw_i - u_4w_4 \\ 
+        &= \bl(u,v+w) \quad \text{same properties as above used}
+    \end{align*}
+    \item\vspace{-.7cm}
+    \begin{align*}
+        \bl(au,v) &= \sum_{i=1}^3 (au)_iv_i - au_4v_4 = a\sum_{i=1}^3u_iv_i - au_4v_4 = a (\sum_{i=1}^3 u_iv_i - u_4v_4) = a\bl(u,v)
+    \end{align*} 
+    \item The following hold, additionally, because we are in $\real^4$:
+    \begin{align*}
+        \bl(u,av) = \sum_{i=1}^3 u_i(av)_i - au_4v_4 = a\sum_{i=1}^3u_iv_i - au_4v_4 = a (\sum_{i=1}^3 u_iv_i - u_4v_4) = a\bl(u,v)
+    \end{align*}
+\end{enumerate}
+Similarly, the form is obviously symmetric under the exchange of $u \leftrightarrow v$ since multiplication is commutative, so the form is actually symmetric under the exchange of $u_i \leftrightarrow v_i$ for any $i$.
+
+$\bl$ is not an inner product, nonetheless, since an inner product $\langle \cdot \rangle$ must satisfy for any $v \in \real^n$, $\langle v,v \rangle = 0 \Leftrightarrow v=0$, and we can pick $0 \neq v=(1,0,0,1) \in \real^4$, for which $\bl(v,v) = 1\cdot 1 + 0 \cdot 0+ 0 \cdot 0 - 1 \cdot 1 = 0$.
+
+Finally, it is easy to see that we can compute $\bl(u,v)$ for any $u,v \in \real^4$ using the matrix $\eta$ below:
+$$ \bl(u,v) = u^T \begin{pmatrix} \one & 0 \\ 0 & -1 \end{pmatrix} = u^T\eta v \quad \one \in GL(3,\real).$$
+
+Hence, any $A \in G$ must by definition satisfy:
+\begin{align*}
+    &\bl(u,v) = \bl(Au,Av) \quad \forall u,v \in \real^4 \\
+    &\Leftrightarrow u^T\eta v = (Au)^T\eta (Av) = u^TA^T\eta Av \quad \forall u,v \in \real^4 \\
+    &\Leftrightarrow \eta = A^T \eta A 
+\end{align*}
+Notice that $det(\eta) = -1 \neq 0$ and hence, all the arguments from Exercise 3 hold, which shows that $G$ is indeed a group as well.
+\begin{enumerate}
+    \item Clearly, $\one \in G$ since $\one^T \eta \one = \eta$.
+    \item $\one^T \eta \one = \eta$ implies $det(A)^2 det(\eta) = \det(\eta) 1 \neq 0$ so $A$ is invertible. Furthermore,
+    \begin{align*}
+        A^T \eta A = \eta \Rightarrow A\inv^T \eta A\inv = \eta \Rightarrow A\inv \in G.
+    \end{align*}
+    \item For any $A_1,A_2 \in G$, we have 
+    \begin{align*}
+        (A_1A_2)^T \eta A_1A_2 = A_2^T(A_1^T\eta A_1)A_2 = A_2^T \eta A_2 = \eta \Rightarrow A_1A_2 \in G.
+    \end{align*}
+    \item Matrix multiplication is associative.
+\end{enumerate}
+\end{answer}
+\begin{exercise}
+ Show, directly from the definition of matrix exponentiation, that $$A=\begin{pmatrix} 0 &− \theta\\ \theta & 0 \end{pmatrix} \implies e^A =\begin{pmatrix} \cos{\theta} & −\sin{\theta}\\ \sin{\theta} & \cos{\theta}\end{pmatrix}.$$
+\end{exercise}
+\begin{answer}
+First note that 
+$$ J^2 = \begin{pmatrix} 0 & -1 \\ 1 & 0  \end{pmatrix}^2 = - \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = -\one \quad \text{ where } J \equiv \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} $$
+So clearly, the sequence $J,J^2,J^3,J^4,J^5,...$ evaluates to $J, -\one, -J, \one, J, -\one, -J, \one,...$ and $$ \theta^n J^n = \begin{pmatrix} 0 & \theta \\ \theta & 0 \end{pmatrix}^n = \begin{cases} (-1)^k\theta^{2k} \one, n = 2k \text{ for some } k\in \mathbb{N} \\ (-1)^k\theta^{2k} K, n=2k+1 \text{ for some } k \in \mathbb{N}
+\end{cases}$$
+By the definition of the exponential of a matrix, we have
+\begin{align*}
+    e^A &= \one + \frac{A}{1!} + \frac{A^2}{2!} + \frac{A^3}{3!} + \frac{A^4}{4!} + ... \\
+    &= \one + \frac{\theta}{1!}J -  \frac{\theta^2}{2!}\one - \frac{\theta^3}{3!}J + \frac{\theta^4}{4!} \one + ...\\
+    &= (1 - \frac{\theta^2}{2!} + \frac{\theta^4}{4!} - ...)\one + (\frac{\theta}{1!} - \frac{\theta^3}{3!} + ...)J \\
+    &= \cos{\theta} \one + \sin{\theta} J \\
+    &= \begin{pmatrix} \cos{\theta} & -\sin{\theta} \\ \sin{\theta} & \cos{\theta} \end{pmatrix}
+\end{align*}
+\end{answer}
+\begin{exercise}
+ Suppose that $D$ is a diagonal matrix with diagonal entries
+$\lambda_1,\lambda_2,..., \lambda_k$. By computing the powers $D^n$ show that $e^D$ is a diagonal matrix with diagonal entries $e^{\lambda_1},e^{\lambda_2},...,e^{\lambda_k}$.
+\end{exercise}
+\begin{answer}
+Since a diagonal matrix is a block matrix, we know that the entries of $D^n$ are $\lambda_1^n,\lambda_2^n,...,\lambda_k^n$. Hence, the entries of the matrix $\frac{1}{n!} D^n $ are just the diagonal entries $\frac{1}{n!}\lambda_1^n,\frac{1}{n!}\lambda_2^n,...,\frac{1}{n!}\lambda_k^n $. Using the definition of matrix exponentials, we have
+\begin{align*}
+    e^D &= \one + \sum_{i=1}^\infty \frac{1}{i!} D^i \\
+    &= \one + \sum_{i=1}^n diag(\frac{1}{i!} \lambda_1^i, \frac{1}{i!} \lambda_2^i,...,\frac{1}{i!} \lambda_k^i) \\
+    &= \sum_{i=0}^\infty diag(\frac{1}{i!} \lambda_1^i, \frac{1}{i!} \lambda_2^i,...,\frac{1}{i!} \lambda_k^i) \\
+    &= diag(\sum_{i=0}^\infty \frac{1}{i!} \lambda_1^i, \sum_{i=0}^\infty \frac{1}{i!} \lambda_2^i,...,\sum_{i=0}^\infty \frac{1}{i!} \lambda_k^i) \\
+    &= diag(e^{\lambda_1},e^{\lambda_2},...,e^{\lambda_k})
+\end{align*}
+\end{answer}
+\end{document}
