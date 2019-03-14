@@ -1,0 +1,97 @@
+\documentclass[12pt,onecolumn]{article}
+\usepackage{pset}
+
+\title{MATH 4500 - Homework 6}
+\author{Daniel Alonso Vicuna}
+
+\begin{document}
+\maketitle
+
+\begin{exercise}
+Using bilinearity, or otherwise, show that $U,V \in \real \ii+ \real \jj+ \real \kk$ implies $[U,V] \in  \real \ii+ \real \jj+ \real \kk$.
+\end{exercise}
+\begin{answer}
+We show this using the definition of the Lie bracket:
+\begin{align*}
+    [a_u\ii+b_u\jj+c_u\kk,a_v\ii+b_v\jj+c_v\kk] &= [a_u\ii,b_v\jj+c_v\kk]+[b_u\jj,a_v\ii+c_v\kk]\\
+    &+ [c_u\kk,a_v\ii+b_v\jj]
+\end{align*}
+Doing the algebra, we find that this lie bracket evaluates to $a\ii + b\jj+c\kk$ for some $a,b,c\in \real$.
+\end{answer}
+\begin{exercise}
+Prove the Jacobi identity by using the deﬁnition $[X,Y]=XY-YX$ to expand $[X,[Y,Z]]+[Y,[Z,X]]+[Z,[X,Y]]$. Assume only that the product is associative and that the usual laws for plus and minus apply. 
+\end{exercise}
+\begin{answer}
+We use the definition of the Lie bracket. First we look at the term $[X,[Y,Z]]$:
+\begin{align*}
+    [X,[Y,Z]] &= [X,YZ - ZY] \quad \text{ by defn } \\
+    &= [X,YZ] - [X,ZY] \quad \text{ bilinear } \\
+    &= XYZ - YZX - XZY + ZYX
+\end{align*}
+Now we plug this in to the complete expression, noting that each term is a cyclic permutation of the previous one:
+\begin{align*}
+    [X,[Y,Z]]+[Y,[Z,X]]+[Z,[X,Y]] &= XYZ - YZX - XZY + ZYX \\
+    &+ YZX - ZXY - ZYX + YXZ \\
+    &+ ZXY - XYZ - YXZ + XZY \\
+    &= 0
+\end{align*}
+\end{answer}
+\begin{exercise}
+$$ B = \begin{pmatrix} 0 & -\theta & 0 \\ \theta & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix} \implies e^B = \begin{pmatrix} \cos{\theta} & -\sin{\theta} & 0 \\ \sin{\theta} & \cos{\theta} & 0 \\ 0 & 0 & 1 \end{pmatrix}  $$
+Using the fact above, and that for any orthogonal matrix $A$,  $Ae^{B}A^T =e^{ABA^T}$. Deduce that each matrix in $SO(3)$ equals $e^X$ for some skew-symmetric matrix $X$.
+\end{exercise}
+\begin{answer}
+From block multiplication and a previous exercise, we know that the implication in the question holds. Furthermore, we know that any matrix $A \in SO(3)$ has the property $AA^T = e$. 
+\end{answer}
+\begin{exercise}
+Show that the skew-Hermitian matrices in the tangent space of $SU(2)$ can be written in the form $b\ii+c\jj+d\kk$, where $b,c,d \in \real$ and $\ii, \jj$, and $\kk$ are matrices with the same multiplication table as the quaternions $\ii, \jj$, and $\kk$.
+\end{exercise}
+\begin{answer}
+First note that any vector $X$ in the tangent space of $SU(2)$ satisfies the equation
+$$ X + \overline{X}^T = 0$$
+Clearly, any such matrix $X$ must be of the form:
+\begin{align*}
+    X &= \begin{pmatrix} a\ii & -b + -c\ii \\ b + -c\ii & -a\ii \end{pmatrix} \\
+    &= b \ii + c \jj  + a \kk 
+\end{align*}
+for $b,c,d \in \real$ where $\ii,\jj,\kk$ are defined as in page 9 of the textbook.
+\end{answer}
+\begin{exercise}
+Also find the tangent space of $Sp(1)$ (which should be the same)
+\end{exercise}
+\begin{answer}
+Once again, we have the equation (for a $1\times 1$ matrix)
+$$ q + \overline{q}^T = 0$$
+But we can decompose this in terms of the usual $\ii,\jj,\kk$ since this is a quaternion. Furtermore, since $a + \overline{a} = 0 $ implies $a =0$ if $a \in \real$, then it follows that the equation above takes the form:
+\begin{align*}
+    b\ii + c\jj + d\kk + \overline{b\ii + c\jj + d\kk}^T &= 0 \\
+    b \ii + c\jj + d \kk -b\ii -c\jj -d\kk &0
+\end{align*}
+In addition these $\ii,\jj,\kk \in \mathbb{H}$ trivially satisfy the multiplication table of quaternions.
+\end{answer}
+\begin{exercise}
+Interpret the following sum as $Tr(XY)$ and $Tr(YX)$:
+\begin{align*}
+      x_{11}y_{11} +  x_{12}y_{21} + ... +  x_{1n}y_{n1}\\
+    + x_{21}y_{12} +  x_{22}y_{22} + ... +  x_{2n}y_{n2}\\
+    \vdots \quad \\
+    + x_{n1}y_{1n} +  x_{n2}y_{2n} + ... +  x_{2n}y_{n2}
+\end{align*}
+\end{exercise}
+\begin{answer}
+We have
+\begin{align*}
+    Tr(XY) &= Tr(\sum_j X_{ij}Y_{jk}) \\
+    &= \sum_{k=1}^n \delta_{ik}\sum_{j=1}^n X_{ij}Y_{jk} \\
+    &= \sum_{k=1}^n\sum_{j=1}^n  X_{kj}Y_{jk}
+\end{align*}
+Clearly, for any $k$, we are summing over a row in the expression above. Similarly,
+\begin{align*}
+    Tr(YX) &= Tr(\sum_j Y_{ij}X_{jk}) \\
+    &= \sum_{k=1}^n \delta_{ik}\sum_{j=1}^n Y_{ij}X_{jk} \\
+    &= \sum_{k=1}^n\sum_{j=1}^n  Y_{kj}X_{jk}
+\end{align*}
+and so for any $k$, we are summing over a column in the expression above.
+\end{answer}
+
+\end{document}
