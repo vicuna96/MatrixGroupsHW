@@ -1,8 +1,9 @@
 \documentclass[12pt,onecolumn]{article}
 \usepackage{pset}
 
-\title{MATH 4500 - Homework 6}
+\title{MATH 4500 - Homework 7}
 \author{Daniel Alonso Vicuna}
+\date{March 13, 2019}
 
 \begin{document}
 \maketitle
@@ -26,7 +27,7 @@ Now we let $U = u_1\ii + u_2\jj + u_3\kk = \sum u_l e_l$ and $V = v_1\ii + v_2\j
     [\sum_l u_l e_l, \sum_m v_m e_m] &= \sum_l \sum_m u_l v_m [e_l,e_m] \quad &\text{ bilinear} \\
     &= \sum_j \sum_m u_l v_m e_k \epsilon_{lmk} \quad &\text{ from above}
 \end{alignat*}
-But every term in the sum is in $\real\ii + \real\jj + \real\kk$, and hence, so does $[U,V]$.
+But every term in the sum is in $\real\ii + \real\jj + \real\kk$, and hence, so is $[U,V]$.
 \end{answer}
 \begin{exercise}
 Prove the Jacobi identity by using the deﬁnition $[X,Y]=XY-YX$ to expand $[X,[Y,Z]]+[Y,[Z,X]]+[Z,[X,Y]]$. Assume only that the product is associative and that the usual laws for plus and minus apply. 
@@ -46,38 +47,79 @@ Now we plug this in to the complete expression, noting that each term is a cycli
     &= 0
 \end{align*}
 \end{answer}
-\begin{exercise}
-$$ B = \begin{pmatrix} 0 & -\theta & 0 \\ \theta & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix} \implies e^B = \begin{pmatrix} \cos{\theta} & -\sin{\theta} & 0 \\ \sin{\theta} & \cos{\theta} & 0 \\ 0 & 0 & 1 \end{pmatrix}  $$
-Using the fact above, and that for any orthogonal matrix $A$,  $Ae^{B}A^T =e^{ABA^T}$. Deduce that each matrix in $SO(3)$ equals $e^X$ for some skew-symmetric matrix $X$.
+\begin{exercise} We explore the correspondence between $SO(3)$ and skew-symmetric matrices.
+\begin{enumerate}[label=(\alph*)]
+    \item Find the exponential of the matrix $B = \begin{pmatrix} 0 & -\theta & 0 \\ \theta & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix} = \begin{pmatrix} \theta J & 0 \\ 0 & 0 \end{pmatrix}$
+    \begin{answer}
+    Using block multiplication, this will converge to $$ e^B = \begin{pmatrix} e^{\theta J} & 0 \\ 0 & e^0 \end{pmatrix}$$
+    with $J$ defined as in Homework 5, Exercise 5. But as we found in that same exercise
+    $$ e^{\theta J} = \begin{pmatrix} \cos{\theta} & -\sin{\theta} \\ \sin{\theta} & \cos{\theta} \end{pmatrix}.$$
+    It follows that $$e^B = 
+    \begin{pmatrix} 
+    \cos{\theta} & -\sin{\theta} & 0 \\
+    \sin{\theta} & \cos{\theta} & 0\\ 
+    0 & 0 & 1 
+    \end{pmatrix}$$
+    \end{answer}
+    \item Show that $Ae^BA^T =e^{ABA^T}$ for any orthogonal matrix $A$. 
+    \begin{answer}
+    First we prove by induction on $n$ that for any matrix $A \in SO(3)$, $(ABA^T)^n = AB^nA^T$. The base case $n=1$ trivially holds, and we assume it holds up to $n$ and show that its true for $n+1$:
+    \begin{align*}
+        (ABA^T)^{n+1} &= (ABA^T)(ABA^T)^{n} \\
+        &= (ABA^T)(AB^nA^T) \quad \text{ induction }\\
+        &= AB(A^TA)B^nA^T \\
+        &= AB^{n+1}A^T
+    \end{align*}
+    Hence, we can use the definition of the matrix exponential to conclude the exercise:
+    \begin{align*}
+        e^{ABA^T} &= \one + \sum_{n=1} (ABA^T)^n \\
+        &= \one + \sum_{n=1} AB^nA^T \\
+        &= A(A^T + \sum_{n=1} B^nA^T ) \\
+        &= A(\one + \sum_{n=1} B^n)A^T = Ae^BA^T
+    \end{align*}
+    \end{answer}
+    \item Deduce that each matrix in $SO(3)$ equals $e^X$ for some skew-symmetric $X$.
+    \begin{answer}
+    First note that any matrix in $Y \in SO(3)$, since it is a rotation of $\real^3$, can be written as $AR_z(\theta)A^T$ for some orthogonal matrix  $A$, with $R_z(\theta) \in SO(3)$ being the rotation on the z-axis (this is just a change of basis). But from part (a), we found that $e^B = R_z(\theta)$, and hence $Ae^BA^T = Y$. Using part (b), we find that $Ae^BA^T = e^{ABA^T} = Y$ and hence any matrix $Y \in SO(3)$ equals $e^{ABA^T}$ for some $A \in O(3)$. 
+    
+    Finally, we show that $ABA^T$ is skew-symmetric:
+    \begin{align*}
+        ABA^T + (ABA^T)^T &= ABA^T + AB^TA^T \\
+        &= A(B+B^T)A^T \\
+        &= A(B-B)A^T = 0
+    \end{align*}
+    \end{answer}
+\end{enumerate}
+
 \end{exercise}
-\begin{answer}
-From block multiplication and a previous exercise, we know that the implication in the question holds. Furthermore, we know that any matrix $A \in SO(3)$ has the property $AA^T = e$. 
-\end{answer}
+
 \begin{exercise}
 Show that the skew-Hermitian matrices in the tangent space of $SU(2)$ can be written in the form $b\ii+c\jj+d\kk$, where $b,c,d \in \real$ and $\ii, \jj$, and $\kk$ are matrices with the same multiplication table as the quaternions $\ii, \jj$, and $\kk$.
 \end{exercise}
 \begin{answer}
-First note that any vector $X$ in the tangent space of $SU(2)$ satisfies the equation
-$$ X + \overline{X}^T = 0$$
+By the proof about the tangent space of $SU(n)$ in Section 5.3 , any $X \in SU(n)$ must satisfy
+$$  X + \overline{X}^T = 0 \quad \text{and} \quad Tr(X) = 0$$
+
 Clearly, any such matrix $X$ must be of the form:
 \begin{align*}
-    X &= \begin{pmatrix} a\ii & -b + -c\ii \\ b + -c\ii & -a\ii \end{pmatrix} \\
-    &= b \ii + c \jj  + a \kk 
+    X &= \begin{pmatrix} d\ii & -b + -c\ii \\ b + -c\ii & -d\ii \end{pmatrix} \\
+    &= b \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} + c \begin{pmatrix} 0 & -\ii \\ -\ii & 0 \end{pmatrix} + d \begin{pmatrix} \ii & 0 \\ 0 & -\ii \end{pmatrix}
 \end{align*}
-for $b,c,d \in \real$ where $\ii,\jj,\kk$ are defined as in page 9 of the textbook.
+for $b,c,d \in \real$ where $\ii,\jj,\kk$. But these matrices are the ones we saw in page 9 of the textbook, where we saw that the indeed satisfy the multiplication table of the quaternions $\ii, \jj, \kk$.
 \end{answer}
 \begin{exercise}
 Also find the tangent space of $Sp(1)$ (which should be the same)
 \end{exercise}
 \begin{answer}
-Once again, we have the equation (for a $1\times 1$ matrix)
+Once again, we have the equation for any $q$ in the Tangent space of $Sp(1)$.
 $$ q + \overline{q}^T = 0$$
-But we can decompose this in terms of the usual $\ii,\jj,\kk$ since this is a quaternion. Furtermore, since $a + \overline{a} = 0 $ implies $a =0$ if $a \in \real$, then it follows that the equation above takes the form:
+But we can decompose this in terms of the usual $1, \ii,\jj,\kk$:
 \begin{align*}
-    b\ii + c\jj + d\kk + \overline{b\ii + c\jj + d\kk}^T &= 0 \\
-    b \ii + c\jj + d \kk -b\ii -c\jj -d\kk &0
+    (a + b\ii + c\jj + d\kk) + \overline{a + b\ii + c\jj + d\kk} &= 0 \\
+    (a+b\ii + c\jj +d\kk) + (a-b\ii -c\jj-d\kk) &= 0\\
+    \implies 2a &= 0\\
 \end{align*}
-In addition these $\ii,\jj,\kk \in \mathbb{H}$ trivially satisfy the multiplication table of quaternions.
+Hence, the tangent space any linear combination of $\ii,\jj,\kk$. In addition these $\ii,\jj,\kk \in \mathbb{H}$ trivially satisfy the multiplication table of quaternions.
 \end{answer}
 \begin{exercise}
 Interpret the following sum as $Tr(XY)$ and $Tr(YX)$:
@@ -101,7 +143,7 @@ Clearly, for any $k$, we are summing over a row in the expression above. Similar
     &= \sum_{k=1}^n \delta_{ik}\sum_{j=1}^n Y_{ij}X_{jk} \\
     &= \sum_{k=1}^n\sum_{j=1}^n  Y_{kj}X_{jk}
 \end{align*}
-and so for any $k$, we are summing over a column in the expression above.
+and so for any $k$, we are summing over a column in the expression above. It follows that $Tr(XY)=Tr(YX)$, as desired.
 \end{answer}
 
 \end{document}

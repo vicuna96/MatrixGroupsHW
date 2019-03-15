@@ -7,6 +7,7 @@
 
 \title{MATH 4500 - Homework 5}
 \author{Daniel Alonso Vicuna}
+\date{March 1, 2019}
 
 \begin{document}
 \maketitle
@@ -153,12 +154,12 @@ Notice that $det(\eta) = -1 \neq 0$ and hence, all the arguments from Exercise 3
 \end{enumerate}
 \end{answer}
 \begin{exercise}
- Show, directly from the definition of matrix exponentiation, that $$A=\begin{pmatrix} 0 &− \theta\\ \theta & 0 \end{pmatrix} \implies e^A =\begin{pmatrix} \cos{\theta} & −\sin{\theta}\\ \sin{\theta} & \cos{\theta}\end{pmatrix}.$$
+ Show, directly from the definition of matrix exponentiation, that $$A=\begin{pmatrix} 0 &- \theta\\ \theta & 0 \end{pmatrix} \implies e^A =\begin{pmatrix} \cos{\theta} & -\sin{\theta}\\ \sin{\theta} & \cos{\theta}\end{pmatrix}.$$
 \end{exercise}
 \begin{answer}
 First note that 
-$$ J^2 = \begin{pmatrix} 0 & -1 \\ 1 & 0  \end{pmatrix}^2 = - \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = -\one \quad \text{ where } J \equiv \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} $$
-So clearly, the sequence $J,J^2,J^3,J^4,J^5,...$ evaluates to $J, -\one, -J, \one, J, -\one, -J, \one,...$ and $$ \theta^n J^n = \begin{pmatrix} 0 & \theta \\ \theta & 0 \end{pmatrix}^n = \begin{cases} (-1)^k\theta^{2k} \one, n = 2k \text{ for some } k\in \mathbb{N} \\ (-1)^k\theta^{2k} K, n=2k+1 \text{ for some } k \in \mathbb{N}
+$$ J^2 = \begin{pmatrix} 0 & -1 \\ 1 & 0  \end{pmatrix}^2 = - \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = -\one \text{ where } J \equiv \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} $$
+So clearly, the sequence $J,J^2,J^3,J^4,J^5,...$ evaluates to $J, -\one, -J, \one, J, -\one, -J, \one,...$ and $$ \theta^n J^n = \begin{pmatrix} 0 & -\theta \\ \theta & 0 \end{pmatrix}^n = \begin{cases} (-1)^k\theta^{2k} \one, n = 2k \text{ for some } k\in \mathbb{N} \\ (-1)^k\theta^{2k} K, n=2k+1 \text{ for some } k \in \mathbb{N}
 \end{cases}$$
 By the definition of the exponential of a matrix, we have
 \begin{align*}
