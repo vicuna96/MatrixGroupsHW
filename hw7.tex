@@ -11,12 +11,22 @@
 Using bilinearity, or otherwise, show that $U,V \in \real \ii+ \real \jj+ \real \kk$ implies $[U,V] \in  \real \ii+ \real \jj+ \real \kk$.
 \end{exercise}
 \begin{answer}
-We show this using the definition of the Lie bracket:
+We show this using the definition of the Lie bracket. First, we compute the values of several Lie brackets that will be useful:
 \begin{align*}
-    [a_u\ii+b_u\jj+c_u\kk,a_v\ii+b_v\jj+c_v\kk] &= [a_u\ii,b_v\jj+c_v\kk]+[b_u\jj,a_v\ii+c_v\kk]\\
-    &+ [c_u\kk,a_v\ii+b_v\jj]
+    [i,j] &= ij - ji = 2k \\
+    [j,k] &= jk - kj = 2i \\
+    [k,i] &= ik - ki = 2j 
 \end{align*}
-Doing the algebra, we find that this lie bracket evaluates to $a\ii + b\jj+c\kk$ for some $a,b,c\in \real$.
+Notice that, just like with the cross product in $\real^3$, we can write this more succintly using the antisymemtric levi-civita tensor, if we let $e_1=\ii, e_2=\jj, e_3=\kk$:
+\begin{align*}
+    [e_i, e_j] = 2 e_k \epsilon_{ijk}
+\end{align*}
+Now we let $U = u_1\ii + u_2\jj + u_3\kk = \sum u_l e_l$ and $V = v_1\ii + v_2\jj + v_3\kk = \sum v_l e_l$, and compute $[U,V]$:
+\begin{alignat*}{2}
+    [\sum_l u_l e_l, \sum_m v_m e_m] &= \sum_l \sum_m u_l v_m [e_l,e_m] \quad &\text{ bilinear} \\
+    &= \sum_j \sum_m u_l v_m e_k \epsilon_{lmk} \quad &\text{ from above}
+\end{alignat*}
+But every term in the sum is in $\real\ii + \real\jj + \real\kk$, and hence, so does $[U,V]$.
 \end{answer}
 \begin{exercise}
 Prove the Jacobi identity by using the deﬁnition $[X,Y]=XY-YX$ to expand $[X,[Y,Z]]+[Y,[Z,X]]+[Z,[X,Y]]$. Assume only that the product is associative and that the usual laws for plus and minus apply. 
