@@ -1,0 +1,116 @@
+\documentclass[12pt,onecolumn]{article}
+\usepackage{pset}
+
+\title{MATH 4500 - Homework 8}
+\author{Daniel Alonso Vicuna}
+\date{March 20, 2019}
+
+\begin{document}
+\maketitle
+
+\begin{exercise}
+When $X^2 = -det(X)\one$, show that 
+$$e^X = \cos(\sqrt{ det(X) })\one+ \frac{\sin(\sqrt{ det(X) })}{\sqrt{det(X)}}
+X.$$
+\end{exercise}
+\begin{answer}
+Evidently, $X^n$ for even exponents would be the identity times some constant $(-1)^{n/2}det(X)^{n/2}$, and for odd exponents you can look at the previous even term and multiply it times $X$. Hence,  
+$$X^n = 
+\begin{cases}
+    (-1)^mdet(X)^m X & n = 2m+1\\
+    (-1)^mdet(X)^m \one & n = 2m.
+\end{cases}$$
+We can use the definition of the matrix exponential, and separate even from odd terms:
+\begin{align*}
+    e^X &= \one + \sum_{n=1}^\infty \frac{X^n}{n!} \\
+    &= \one + \sum_{n\text{ odd}}^\infty \frac{X^n}{n!}+ \sum_{n\text{ even}}^\infty \frac{X^n}{n!} \\
+    &= \one + \sum_{m=0}^\infty \frac{(-1)^{m}det(X)^{m}}{(2m+1)!}X + \sum_{m=1}^\infty \frac{(-1)^{m}det(X)^{m}}{(2m)!} \one \\
+    &= \one(1 +  \sum_{m=1}^\infty \frac{(-1)^{m}\sqrt{det(X)}^{2m}}{(2m)!}) + \frac{X}{\sqrt{det(X)}}\sum_{m=0}^\infty \frac{(-1)^{m}\sqrt{det(X)}^{2m+1}}{(2m+1)!} \\
+    &= \cos(\sqrt{det(X)})\one + \frac{X}{\sqrt{det(X)}}\sin(\sqrt{det(X)})
+\end{align*}
+\end{answer}
+\begin{exercise}
+Using Exercise 1, and the fact that $Tr(X)=0$, show that if $$e^X =\begin{pmatrix}-1 & 1\\ 0 & -1\end{pmatrix}$$ then $\cos(det(X))=-1$, in which case $\sin(det(X))=0$, and there is a contradiction. 
+\end{exercise}
+\begin{answer}
+We suppose, for the sake of contradiction, that there exists some $X \in \mathfrak{sl}(2,\complex)$ such that $$ e^X = \begin{pmatrix}
+    -1 & 1 \\
+    0 & -1
+\end{pmatrix} \in SL(2,\complex).$$ By assumption $Tr(X) = 0$, and hence from Cayley-Hamilton's theorem $X^2 = -det(X)\one$. We can then use the conclusion of Exercise 1, which states that
+$$ e^X = \cos(\sqrt{det(X)})\one + \frac{X}{\sqrt{det(X)}}\sin(\sqrt{det(X)}). $$
+We then compute the trace of $e^X$, but the second term of the latter expression has trace 0 and the trace is linear so $Tr(e^X) = 2 \cos(\sqrt{det(X)}) = -2$. It follows that $\cos(\sqrt{det(X)}) = -1$, and at the values at which $\cos$ is $-1$ $\sin$ is 0, hence $\sin(\sqrt{det(X)}) = 0$, which implies $e^X = -\one$. This is a contradiction.
+\end{answer}
+\begin{exercise}
+Show that $SU(n)$ is a normal subgroup of $U(n)$ by describing it as the kernel of a homomorphism.
+\end{exercise}
+\begin{answer}
+We look at the homomorphism $\varphi: U(n) \rightarrow C^{\times}$, defined by $$ \varphi(A) = det(A).$$
+We have seen before that this is a homomorphism, since 
+\begin{align*}
+    \varphi(AB) = det(AB) = det(A)det(B) = \varphi(A)\varphi(B)
+\end{align*}
+Because $1$ is the multiplicative identity in $C^{\times}$, it follows that $$ker(\varphi) = \{ A \in U(n) \mid det(A) = 1 \} = SU(n).$$
+Finally, as we have previously seen, the kernel of a homomorphism is a normal subgroup. To see why this is the case, take any $A \in ker(\phi)$ and $B \in G$ where $\phi: G \rightarrow G'$ is a homomorphism. Then
+$$\phi(B A B\inv) = \phi(B)\phi(A)\phi(B\inv) = \phi(B)\phi(B\inv) = \phi(BB\inv) = \phi(1) = 1$$
+which implies that $BAB\inv \in ker(\phi).$
+\end{answer}
+\begin{exercise}
+Show that $T_{\one}(SU(n))$ is an ideal of $T_{\one}(U(n))$ by checking that it has the required closure properties.
+\end{exercise}
+\begin{answer}
+We take arbitrary elements $X \in T_{\one}(SU(n)) $ and $Y \in T_{\one}(U(n))$, then we show that $[X,Y] \in T_{\one}(SU(n)).$
+But recall from Section 5.3 that
+\begin{align*}
+    T_{\one}(U(n)) &= \{ X \mid X + \overline{X}^T = 0\} \\
+    T_{\one}(SU(n)) &= \{ Y \mid Y + \overline{Y}^T = 0 \text{ and } Tr(Y) = 0\} 
+\end{align*}
+Hence, for $X,Y$ as described above,
+\begin{align*}
+    (XY-YX) + \overline{(XY-YX)}^T &= (XY-YX) + \overline{Y}^T\overline{X}^T- \overline{X}^T\overline{Y}^T \\
+    &= (XY-YX) + (-Y)(-X) - (-X)(-Y) \\
+    &= XY-YX + YX - XY = 0
+\end{align*}
+And using the fact that $Tr(XY) = Tr(YX)$, which we proved in Exercise 6 of Homework 7, and that the trace is linear, then
+$$ Tr(XY-YX) = Tr(XY) - Tr(YX) = 0. $$
+It follows that $[X,Y] = XY-YX \in T_{\one}(SU(n)).$
+\end{answer}
+\begin{exercise}
+ Find a 1-dimensional ideal $\mathcal{J}$ in $\mathfrak{u}(n)$, and show that $\mathcal{J}$ is the tangent space of $Z(U(n))$. 
+\end{exercise}
+\begin{answer}
+We start from the fact that 
+$$ Z(U(n)) = \{ e^{\ii \theta} \one \mid \theta \in \real\} $$
+Indeed, $Z(U(n))$ is a normal subgroup of $U(n)$ since for any $x \in Z(U(n))$ and $y \in U(n)$, we have that
+\begin{align*}
+    yxy\inv &= yy\inv x \quad \text{ defn of center} \\
+    &= x \in Z(U(n)).
+\end{align*}
+We can then compute $T_{\one}(Z(U(n))$ by differentiating any path through the group at $\one$:
+\begin{align*}
+    \frac{d}{dt} e^{\ii \theta t}\bigg|_{t=0} &= \ii \theta e^{\ii \theta t}\bigg|_{t=0} \\
+    &= \ii \theta \one \quad \theta \in \real
+\end{align*}
+Hence, any $x \in T_{\one}(Z(U(n))$ is of the form above. Furthermore, take any vector $ y = \ii \theta \one$, then
+\begin{align*}
+    e^y &= e^{\ii \theta \one} \\
+    &= \sum_{n=0}^\infty \frac{\ii^n \theta^n}{n!} \one^n = \one\sum_{n=0}^\infty \frac{\ii^n \theta^n}{n!} = e^{\ii \theta} \one \in Z(U(n)).
+\end{align*}
+It follows that $$T_{\one}(Z(U(n))) = \{\ii \theta \one \mid \theta \in \real\}.$$
+By the first proof in Section 6.1, this means that $T_{\one}(Z(U(n)))$ is an ideal of $\mathfrak{u}(n)$, since $Z(U(n))$ is a normal subgroup of $U(n)$. Furthermore, $T_{\one}(Z(U(n)))$ is a one dimensional vector space over $\real$, since the set $\{\ii \one \}$ is clearly linearly independent, spans the vector space, and contains one vector.
+
+Now, to see why $Z(U(n)) = \{ e^{\ii \theta} \one \mid \theta \in \real\}$, we can appeal to the spectral theorem from linear algebra and the definition of center (commutes with all else). Take any $A \in Z(U(n))$, and the orthogonal matrix $P$ that diagonalizes it. Then,
+$$  D = PAP\inv = PP\inv A = A $$
+Furthermore, suppose $A$ has different eigenvalues. Then if $P'$ is a permutation matrix, we know that $P'AP'\inv \neq A$ so $A \notin Z(U(n))$ - a contradiction. Hence, $A$ is of the form $\lambda \one$. In addition, since $A \in U(n)$, it follows that $$|det(A)| = |\lambda^n| = 1 \implies \lambda = e^{\ii \theta} \quad \forall\theta \in \real$$.
+
+Note that we could have also pretended that we had the ansatz $\mathcal{J} = \{ \ii \theta \one \mid \theta \in \real\}$, which is clearly one dimensional as argued above, and can be shown to be an ideal. Then independently found $T_{\one}(Z(U(n)))$ as we did above, or argued that it has dimension 1 and found that $T_{\one}(Z(U(n))) = \mathcal{J}$ by inclusion.
+\end{answer}
+\begin{exercise}
+ Also show that the $Z(U(n))$ is the image, under the exponential map, of the ideal $\mathcal{J}$ in Exercise 5.
+ 
+\end{exercise}
+\begin{answer}
+We found in Exercise 5 the one dimensional ideal 
+$$ \mathcal{J} = \{ \ii \theta \one \mid \theta \in \real \},$$
+and we have already shown that for any $y \in \mathcal{J}$, $e^y \in Z(U(n))$.
+\end{answer}
+\end{document}
