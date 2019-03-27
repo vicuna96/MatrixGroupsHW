@@ -1,5 +1,9 @@
 \documentclass[12pt,onecolumn]{article}
 \usepackage{pset}
+\newcommand{\four}{^{(4)}}
+\newcommand{\three}{^{(3)}}
+
+
 
 \title{MATH 4500 - Homework 9}
 \author{Daniel Alonso Vicuna}
@@ -21,26 +25,58 @@ Recall that a linear map between two abstract Lie algebras $\varphi : \mathfrak{
     \]
     with $[X,Y]=H$, $[H,X]=2X$, and $[H,Y]=-2Y$.
     \begin{answer}
-    
+    We first show that $\{X,Y,H\}$ spans $\mathfrak{sl}_2(\complex)$ by showing that any matrix that satisfies 
+    \[
+    A \in M_2(\complex) \quad Tr(A) = 0.
+    \]
+    All matrices satisfying this are of the form:
+    \[
+    \begin{pmatrix} 
+    \alpha & \beta \\
+    \gamma & -\alpha
+    \end{pmatrix}
+    = \beta X + \gamma Y + \alpha H
+    \]
+    These matrices are also clearly linearly independent (only their trivial linear combination can equal 0), and hence $\{X,Y,H\}$ form a basis.
     \end{answer}
-    \item Bearing in mind that for any vector space $V$, $\mathfrak{gl}(V):= \{A ∈ End(V )\}$ with the bracket $[A, B] = AB − BA$ is an abstract Lie algebra, prove that we have a Lie algebra homomorphism
+    \item Bearing in mind that for any vector space $V$, $\mathfrak{gl}(V):= \{A \in End(V )\}$ with the bracket $[A, B] = AB - BA$ is an abstract Lie algebra, prove that we have a Lie algebra homomorphism
     \begin{align*}
     ad : \mathfrak{sl}_2(\complex) &\rightarrow \mathfrak{gl}(\mathfrak{sl}_2(\complex)) \\
     x &\mapsto [x,-]
     \end{align*}
     which is injective, but not surjective.
     \begin{answer}
-    
+    First we show that this is indeed a homomorphism:
+    \begin{align*}
+        ad([x,y])(z) &= [[x,y], z] \\
+        &= -[[y,z],x] -[[z,x],y]\quad \text{Jacobi id}\\
+        &= [x,[y,z]] - [y,[x,z]] \\
+        &= (ad(x) \circ ad(y))(z) - (ad(y) \circ ad(x))(z) \\
+        &= ([ad(x), ad(y)])(z)
+    \end{align*}
+    Now we show that the map is injective by showing that $\ker{ad} = 0$. Take any $v = aX + bY + cH \in \ker{ad}$. Then by assumption, we have
+    \begin{align*}
+        ad(v)(X) &= ad( aX + bY + cH ) \\
+        &= a*ad(X)(X) + b*ad(Y)(X) + c*ad(H)(X) \\
+        &= -2b H + 2cX \\
+        &= 0 \\
+        &\implies b=c=0 \quad \text{since $H,X$ linearly ind.}
+    \end{align*}
+    In addition, since $v \in \ker(ad)$ then $ad(v)(Y) = a*ad(X)(Y) = a*H = 0$ and this also implies that $a = 0$. \par
+    Finally, $\mathfrak{gl}(\mathfrak{{sl}_2(\complex)}$ is the set of all linear maps from $\mathfrak{sl}_2(\complex)$ to $\mathfrak{sl}_2(\complex)$, and since $dim(\mathfrak{sl}_2(\complex))=3$, then $dim(\mathfrak{gl}(\mathfrak{sl}_2(\complex)) = 9$, so $ad$ cannot be surjective.
     \end{answer}
     \item Find the eigenvalues of the linear map $ad(H): \mathfrak{sl}_2(\complex) \rightarrow \mathfrak{sl}_2(\complex)$.
     \begin{answer}
-    
+    Since $\{X,Y,H\}$ from a basis, any vector is a linear combination of them. But we know that 
+    \begin{align*}
+        ad(H)(X) &= [H,X] = 2X \\
+        ad(H)(Y) &= [H,Y] = -2Y \\
+        ad(H)(H) &= [H,H] = 0
+    \end{align*}
+    So $X,Y,H$ are the only possible eigenvectors, and their eigenvalues are $2,-2$ and $0$.
     \end{answer}
 \end{enumerate}
 \end{exercise}
-\begin{answer}
-
-\end{answer}
 \begin{exercise}[6.5.4]
  Prove that each $4\times 4$ skew-symmetric matrix is uniquely decomposable as a sum 
  \[
@@ -59,24 +95,150 @@ Recall that a linear map between two abstract Lie algebras $\varphi : \mathfrak{
  \]
 \end{exercise}
 \begin{answer}
-
+We prove that the following system has a unique solution:
+\begin{align*}
+\begin{pmatrix}
+ 0 & -a-x & -b-y & -c-z \\
+ a+x & 0 & -c+z & b-y \\
+ b+y & c-z & 0 & -a+x \\
+ c+z & -b+y & a-x & 0
+ \end{pmatrix} =
+ \begin{pmatrix}
+ 0 & a_1 & a_2 & a_3 \\
+ -a_1 & 0 & a_4 & a_5 \\
+ -a_2 & -a_4 & 0 & a_6 \\
+ -a_3 & -a_5 & -a_6 & 0
+ \end{pmatrix}
+\end{align*}
+This gives us 6 equations, and six unknowns. Looking at these equations closely, only $a_1,a_6$ involve the variables $a,x$. The case is similar for the other variables, so that there really are 3 systems of 2 equations and two variables which can be solved as follows:
+\[
+\begin{pmatrix}
+-1 & -1 \\
+-1 & 1 \\
+\end{pmatrix}
+\begin{pmatrix}
+a \\ x
+\end{pmatrix} = 
+\begin{pmatrix}
+a_1 \\ a_6
+\end{pmatrix}
+\quad 
+\begin{pmatrix}
+-1 & -1 \\
+1 & -1 \\
+\end{pmatrix}
+\begin{pmatrix}
+b \\ y
+\end{pmatrix} = 
+\begin{pmatrix}
+a_2 \\ a_5
+\end{pmatrix}
+\quad
+\begin{pmatrix}
+-1 & -1 \\
+-1 & 1 \\
+\end{pmatrix}
+\begin{pmatrix}
+c \\ z
+\end{pmatrix} = 
+\begin{pmatrix}
+a_3 \\ a_4
+\end{pmatrix}
+\]
 \end{answer}
+But this concludes the proof since the matrices above have determinants -2,2, and -2 respectively, and are thus invertible and hence the system has a unique solution.
 \begin{exercise}[6.5.5]
-Setting $I =−E_{12}−E_{34}, J =−E_{13}+E_{24}$, and $K =−E_{14}−E_{23}$, show that $[I,J]=2K$, $[J,K]=2I$, and $[K,I]=2J$. 
+Setting $I =-E_{12}-E_{34}, J =-E_{13}+E_{24}$, and $K =-E_{14}-E_{23}$, show that $[I,J]=2K$, $[J,K]=2I$, and $[K,I]=2J$. 
 \end{exercise}
 \begin{answer}
-
+We start by noting the identity:
+\[
+E_{ji} = e_{ji} - e_{ij} = -(e_{ij}-e_{ji}) = - E_{ij}.
+\]
+Using this identity and the bilinearity of the Lie bracket we complete the proof:
+\begin{align*}
+    [I,J] &= [-E_{12}-E_{34},-E_{13}+E_{24}]\\
+    &= [E_{12},E_{13}] - [E_{12},E_{24}] + [E_{34},E_{13}]-[E_{34},E_{24}] \\
+    &= -[E_{12},E_{31}] - [E_{12},E_{24}] + [E_{34},E_{13}] + [E_{43},E_{24}] \\
+    &= -E_{23}-E_{14}+E_{41}+E_{32} \\
+    &= -2E_{23}-2E_{14}= 2K
+\end{align*}
+\begin{align*}
+    [J,K] &= [-E_{13}+E_{24},-E_{14}-E_{23}] \\
+    &= [E_{13},E_{14} ] + [E_{13},E_{23}] - [E_{24},E_{14}] - [E_{24}, E_{23}] \\
+    &= - E_{34} - E_{12} + E_{21} + E_{43}\\
+    &= -2E_{34} - 2E_{12} = 2 I
+\end{align*}
+\begin{align*}
+    [K,I] &= [-E_{14}-E_{23}, -E_{12}-E_{34}] \\
+    &= [E_{14},E_{12} ]  + [E_{14}, E_{34}] + [E_{23}, E_{12}] + [E_{23}, E_{34}] \\
+    &= -E_{42} - E_{13} + E_{31} + E_{24} \\
+    &= -2E_{13} + 2 E_{24} = 2 J
+\end{align*}
+\end{answer}
+\begin{exercise}[6.5.6]
+ Deduce from Exercises 2 and 3 that $\mathfrak{so}(4)$ is isomorphic to the direct product $\mathfrak{so}(3) \times \mathfrak{so}(3)$ (also known as the direct sum and commonly written $\mathfrak{so}(3) \oplus \mathfrak{so}(3))$.
+\end{exercise}
+\begin{answer}
+We construct a basis as done in the textbook for $\mathfrak{so}(n)$ and denote it by $E_{ij}^{(n)}$. For $\lso(4)$ it is easier to consider the elements $\{I,J,K,I',J',K'\}$ where $I,J,K$ are defined in the previous exercise and \[
+I'=-E_{12}\four + E_{34}\four \quad J=-E_{13}\four-E_{24}\four \quad K' = -E_{14}\four +E_{23}\four.
+\] It is easy to see, by the computations from Exercise 3, that 
+\[
+[I',J']=-2K' \quad [J',K']=-2I' \quad [K',I']=-2J'.
+\]
+In addition, 
+\[
+[I,I'] = [J,J'] = [K,K'] = 0
+\]
+because all of these commutators are in the form $[E_{ij},E_{kl}]$ for distinct $i,j,k,l$ (Exercise 6.5.2), and we can also compute some other cross commutators:
+\begin{align*}
+    [I,K'] &= [-E_{12}\four - E_{34}\four, -E_{13}\four-E_{24}\four] \\
+    &= -E_{23}\four +E_{14}\four +E_{41}\four-E_{32}\four = 0
+\end{align*}
+\begin{align*}
+    [J,I'] &= [-E_{13}\four + E_{24}\four,-E_{12}\four + E_{34}\four ] \\
+    &= -E_{32}\four -E_{14}\four -E_{41}\four -E_{23}\four = 0
+\end{align*}
+and from these, we can use the Jacobi identity to show that $[B,B'] = 0$ for all $B\in\{I,J,K\}$. To make computations easier, we match $B_1,B_2,B_3$ with $I,J,K$ respectively, and likewise for the primed elements. For the basis elements of $\lso(3)$, we will denote $E_{12}\three,E_{13}\three, E_{23}\three$ as $A_1,A_2$ and $A_3$ respectively. 
+We define a map $\varphi : \lso(3) \times \lso(3) \rightarrow \lso(4)$ by
+\begin{align*}
+    \varphi((\sum_{i=1}^3 a_iA_i,x_iA_i)) = 2\sum_{i=1}^3 a_iB_i -  2\sum_{i=1}^3 x_iB_i' 
+\end{align*}
+for some $a,x \in \real^3$.
+% \begin{align*}
+% \varphi((aE_{12}\three+&bE_{13}\three+cE_{23}\three,xE_{12}\three+yE_{13}\three+zE_{23}\three)) = aI + bJ + cK + xI' + bJ' + cK'
+% \end{align*} 
+By Exercise 2, this map is one-to-one and onto. Hence, we only need to show that this is a homomorphism:
+\begin{align*}
+    \varphi([(a,x),(b,y)]) &= \varphi(([a,b],[x,y])) \\
+    &=\varphi((\sum_{i,j} a_ib_i[A_i,A_j],\sum_{i,j} x_iy_i[A_i',A_j'])) \\
+    &= \varphi((\sum_{i,j} a_ib_j A_k \epsilon_{ijk}, \sum_{i,j} x_iy_jA_k'\epsilon_{ijk})) \\
+    &= 2\sum_{i,j} a_ib_jB_k\epsilon_{ijk} - 2\sum_{i,j} x_iy_jB_k' \epsilon_{ijk} \\
+    &=\sum_{i,j} a_ib_j[B_i,B_j] + \sum_{i,j} x_iy_j[B_i',B_j'] \\ 
+    &= \sum_{i,j}[a_iB_i+ x_iB_i',b_jB_j+y_jB_j'] \\
+    &= [\sum_i a_iB_i+x_iB_i', \sum_j b_jB_j+y_jB_j'] \\
+    &= [\varphi((a,x)),\varphi((b,y))]
+\end{align*}
+Notice that the penultimate step above holds because of the bilinearity of the lie bracket, and because $[B_i,B_j']=0$ for all $i,j$. This shows that the map is a bijective homomorphism, and hence $\lso(4) \cong \lso(3) \times \lso(3)$.
 \end{answer}
 \begin{exercise}[8.1.3]
-Give an example of an inﬁnite intersection of open sets that is not open. 
+Give an example of an infinite intersection of open sets that is not open. 
 \end{exercise}
 \begin{answer}
-
+We can consider the intercept of open $\epsilon$-balls around some point $P$:
+\[
+\bigcap_{\epsilon \neq 0} N_\epsilon(P) = \{ P\}
+\]
+Clearly, each $N_{\epsilon}(P)$ is open, but the intercept of all of them is the set which only contains $P$ and which is closed since $\real^k \setminus P$ is open.
 \end{answer}
 \begin{exercise}[8.2.1]
  Prove that $U(n)$, $SU(n)$, and $Sp(n)$ are closed subsets of the appropriate matrix spaces. 
 \end{exercise}
 \begin{answer}
-
+\begin{itemize}
+    \item[U(n):] We can consider the continuos function $\phi(A) = A\overline{A}^T$ which maps $GL(n,\complex)$ onto itself. Note that $\phi$ is continuous since it is componentwise continuous because addition, multiplication, and conjugation are all continuous. Clearly, $\phi(\one)\inv = U(n)$, and $\{\one\}$ is closed, so its preimage $U(n)$ must also be closed.
+    \item[SU(n):] We can look at the map $det : GL(n,\complex) \rightarrow \complex^{\times}$. Since $\{1\} $ is closed (in $\complex^{\times}$), then its preimage $\{A \in GL(n,\complex) \mid det(A)=1\}$ must also be closed since $det$ is a continuous function. But $SU(n) = U(n) \cap det(1)\inv$, and we showed above that $U(n)$ is closed so $SU(n)$ must be closed since it is the intersection of two closed sets.
+    \item[Sp(n):] We do the same thing as for $U(n)$, but instead we consider $GL(n,\mathbb{H})$. We define a map $\phi : GL(n,\mathbb{H}) \rightarrow GL(n,\mathbb{H})$ given by $\phi(A) = A\overline{A}^T$ where the conjugation is in $\mathbb{H}$. Again, this map is continuous since it is elementwise continuous because (quaternion) conjugation, addition, and multiplication are continuous. Clearly, $\phi(\one)\inv = Sp(n)$, and $\{\one\}$ is closed in $GL(n,\mathbb{H})$. Hence, its preimage $Sp(n)$ must also be closed in $GL(n,\mathbb{H})$.
+\end{itemize}
 \end{answer}
 \end{document}
